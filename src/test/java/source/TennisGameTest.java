@@ -4,32 +4,32 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/**
+ *
+ * output:
+ *   3:1 —> [forty fifteen]
+ *   if after deuce, first player win —> [first player win]
+ *   if after deuce, second player win —> [second player win]
+ *   if after deuce, second player win —> [second player win]
+ *
+ *
+ * class rule:
+ *   score String
+ *   firstPlayerScore void
+ *   secondPlayerScore void
+ *
+ * 使用者案例
+ *	正常情況(不考慮 deuce)
+ *      顯示比分(尚未結束的比分)
+ *      比賽結束
+ *
+ *  規格情況(deuce)
+ *      顯示比分(尚未結束的比分)
+ *      比賽結束
+ *
+ * */
 public class TennisGameTest {
-    /*
-     *
-     * output:
-     *   3:1 —> [forty fifteen]
-     *   if after deuce, first player win —> [first player win]
-     *   if after deuce, second player win —> [second player win]
-     *   if after deuce, second player win —> [second player win]
-     *
-     *
-     * class rule:
-     *   score String
-     *   firstPlayerScore void
-     *   secondPlayerScore void
-     *
-     * 使用者案例
-     *	正常情況(不考慮 deuce)
-     *      顯示比分(尚未結束的比分)
-     *      比賽結束
-     *
-     *  規格情況(deuce)
-     *      顯示比分(尚未結束的比分)
-     *      比賽結束
-     *
-     * */
+
 
     TennisGame game = new TennisGame();
 
