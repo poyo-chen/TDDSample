@@ -59,16 +59,16 @@ public class BowlingGameTest {
     @Test
     void testOneSparse() {
         //arrange
-        bowlingGame.roll(3);
-        bowlingGame.roll(7);
-        bowlingGame.roll(3);
+        bowlingGame.roll(1);
+        bowlingGame.roll(9);
+        bowlingGame.roll(4);
         rollMany(17, 0);
 
         //act
         int score = bowlingGame.score();
 
         //assert
-        assertEquals(16, score);
+        assertEquals(18, score);
     }
 
     /**
@@ -76,7 +76,17 @@ public class BowlingGameTest {
      */
     @Test
     void testOneStrike() {
+        //arrange
+        bowlingGame.roll(10);
+        bowlingGame.roll(4);
+        bowlingGame.roll(5);
+        rollMany(17, 0);
 
+        //act
+        int score = bowlingGame.score();
+
+        //assert
+        assertEquals(29, score);
     }
 
     /**
