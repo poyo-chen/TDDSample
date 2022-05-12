@@ -40,35 +40,117 @@ public class TennisGame {
 //        } else if (firstPlayerScore == 4 && secondPlayerScore == 1) {
 //            return "first player win";
 //        }
-        if (firstPlayerScore == 4
-                && secondPlayerScore < 3) {
+
+
+//        if (firstPlayerScore == 4
+//                && lessThanThree(secondPlayerScore)) {
+//            return FIRST_PLAYER + BLANK + WIN;
+//        } else if (secondPlayerScore == 4
+//                && lessThanThree(firstPlayerScore)) {
+//            return SECOND_PLAYER + BLANK + WIN;
+//        } else if (firstPlayerScore == secondPlayerScore
+//                && !lessThanThree(firstPlayerScore)) {
+//            return DEUCE;
+//        } else if (difference(firstPlayerScore, secondPlayerScore, 1)
+//                && !lessThanThree(secondPlayerScore)) {
+//            return FIRST_PLAYER + BLANK + ADVANTAGE;
+//        } else if (difference(firstPlayerScore, secondPlayerScore, 1)
+//                && !lessThanThree(firstPlayerScore)) {
+//            return SECOND_PLAYER + BLANK + ADVANTAGE;
+//        } else if (difference(firstPlayerScore, secondPlayerScore, 2)
+//                && !lessThanThree(secondPlayerScore)) {
+//            return FIRST_PLAYER + BLANK + WIN;
+//        } else if (difference(firstPlayerScore, secondPlayerScore, 2)
+//                && !lessThanThree(firstPlayerScore)) {
+//            return SECOND_PLAYER + BLANK + WIN;
+//        }
+
+
+        /*
+         * 雙方分數大於三
+         * 1.Deuce
+         * 2.Advantage
+         * 3.Win
+         */
+        if (greaterThanThree(firstPlayerScore, secondPlayerScore)) {
+            if (isDeuce(firstPlayerScore, secondPlayerScore)) {
+                return DEUCE;
+            }
+            String ahead = whoAhead(firstPlayerScore, secondPlayerScore);
+
+            String advantageOrWin = advantageOrWin(firstPlayerScore, secondPlayerScore);
+
+            return ahead + BLANK + advantageOrWin;
+        }
+
+        /*
+         * 任一方先獲得四分
+         */
+        if (firstPlayerScore == 4) {
             return FIRST_PLAYER + BLANK + WIN;
-        } else if (secondPlayerScore == 4
-                && firstPlayerScore < 3) {
-            return SECOND_PLAYER + BLANK + WIN;
-        } else if (firstPlayerScore == secondPlayerScore
-                && firstPlayerScore >= 3) {
-            return DEUCE;
-        } else if (firstPlayerScore - secondPlayerScore == 1
-                && secondPlayerScore >= 3) {
-            return FIRST_PLAYER + BLANK + ADVANTAGE;
-        } else if (secondPlayerScore - firstPlayerScore == 1
-                && firstPlayerScore >= 3) {
-            return SECOND_PLAYER + BLANK + ADVANTAGE;
-        } else if (firstPlayerScore - secondPlayerScore == 2) {
-            return FIRST_PLAYER + BLANK + WIN;
-        } else if (secondPlayerScore - firstPlayerScore == 2) {
+        } else if (secondPlayerScore == 4) {
             return SECOND_PLAYER + BLANK + WIN;
         }
 
         return firstPlayerTotalScoreMapping + BLANK + secondPlayerTotalScoreMapping;
     }
 
+    /**
+     * 判斷是否獲勝
+     *
+     * @param firstPlayerScore
+     * @param secondPlayerScore
+     * @return
+     */
+    private String advantageOrWin(int firstPlayerScore, int secondPlayerScore) {
+        return Math.abs(firstPlayerScore - secondPlayerScore) == 1 ? ADVANTAGE : WIN;
+    }
+
+    /**
+     * 判斷誰領先
+     *
+     * @param firstPlayerScore
+     * @param secondPlayerScore
+     * @return
+     */
+    private String whoAhead(int firstPlayerScore, int secondPlayerScore) {
+        return firstPlayerScore > secondPlayerScore ? FIRST_PLAYER : SECOND_PLAYER;
+    }
+
+    /**
+     * 判斷是否同分.
+     *
+     * @param firstPlayerScore
+     * @param secondPlayerScore
+     * @return
+     */
+    private boolean isDeuce(int firstPlayerScore, int secondPlayerScore) {
+        return firstPlayerScore == secondPlayerScore;
+    }
+
+    /**
+     * 第一位選手得分.
+     */
     public void firstPlayerScore() {
         firstPlayerScore++;
     }
 
+    /**
+     * 第二位選手得分.
+     */
     public void secondPlayerScore() {
         secondPlayerScore++;
     }
+
+    /**
+     * 判斷雙方皆超過三分.
+     *
+     * @param firstPlayerScore
+     * @param secondPlayerScore
+     * @return
+     */
+    public boolean greaterThanThree(int firstPlayerScore, int secondPlayerScore) {
+        return firstPlayerScore >= 3 && secondPlayerScore >= 3;
+    }
+
 }
