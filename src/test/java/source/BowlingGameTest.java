@@ -62,8 +62,7 @@ public class BowlingGameTest {
     @Test
     void testOneSparse() {
         //arrange
-        bowlingGame.roll(1);
-        bowlingGame.roll(9);
+        rollSpare(1, 9);
         bowlingGame.roll(4);
         rollMany(17, 0);
 
@@ -74,13 +73,14 @@ public class BowlingGameTest {
         assertEquals(18, score);
     }
 
+
     /**
      * 第一局即發生 Strike。
      */
     @Test
     void testOneStrike() {
         //arrange
-        bowlingGame.roll(10);
+        rollStrike();
         bowlingGame.roll(4);
         bowlingGame.roll(5);
         rollMany(17, 0);
@@ -89,7 +89,7 @@ public class BowlingGameTest {
         int score = bowlingGame.score();
 
         //assert
-        assertEquals(29, score);
+        assertEquals(28, score);
     }
 
     /**
@@ -97,11 +97,33 @@ public class BowlingGameTest {
      */
     @Test
     void testPerfectGame() {
+        //arrange
+        rollMany(12, 10);
 
+        //act
+        int score = bowlingGame.score();
+
+        //assert
+        assertEquals(300, score);
     }
 
     /**
-     * 發現測試程式有重複的地方，因此我們開始進行重構；我們把重複的for迴圈部分搬出來，另外建一個 rollMany
+     * 每輪第一下皆為九瓶，第二下沒中。
+     */
+    @Test
+    public void testAllNine() {
+        //arrange
+        rollMany(10, 9, 0);
+
+        //act
+        int score = bowlingGame.score();
+
+        //assert
+        assertEquals(90, score);
+    }
+
+    /**
+     * 發現測試程式有重複的地方，因此我們開始進行重構；我們把重複的for迴圈部分搬出來，另外建一個 rollMany。
      *
      * @param n    丟球次數
      * @param pins 擊倒瓶數
@@ -111,4 +133,30 @@ public class BowlingGameTest {
             bowlingGame.roll(pins);
         }
     }
+
+    public void rollMany(int n, int pins, int pins2) {
+        for (int i = 0; i < n; i++) {
+            bowlingGame.roll(pins);
+            bowlingGame.roll(pins2);
+        }
+    }
+
+    /**
+     * 打出Spare.
+     *
+     * @param pinsDown
+     * @param pinsDown1
+     */
+    private void rollSpare(int pinsDown, int pinsDown1) {
+        bowlingGame.roll(pinsDown);
+        bowlingGame.roll(pinsDown1);
+    }
+
+    /**
+     * 打出Strike.
+     */
+    private void rollStrike() {
+        bowlingGame.roll(10);
+    }
+
 }
